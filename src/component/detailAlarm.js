@@ -4,10 +4,10 @@ const DetailAlarm = ({ id, LineNo, Worker, ReportTime, Cause }) => {
             <>DetailAlarm</>
             <hr></hr>
             <ul>
-                <li>LineNo= {LineNo}</li>
-                <li>Worker= {Worker}</li>
-                <li>ReportTime= {ReportTime}</li>
-                <li>Cause= {Cause}</li>
+                <li>전용회선번호= {LineNo}</li>
+                <li>근무자= {Worker}</li>
+                <li>장애시간= {ReportTime}</li>
+                <li>원인= {Cause}</li>
             </ul>
         </div>
     );

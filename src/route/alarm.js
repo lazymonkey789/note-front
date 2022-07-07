@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Alarmlist from "../component/alarmlist";
 
 const Alarm = () => {
@@ -26,6 +27,10 @@ const Alarm = () => {
                     Worker={alarm.Worker}
                 />
             ))}
+            <hr></hr>
+            <footer>
+                <Link to="add">작성하기</Link>
+            </footer>
         </div>
     );
 };
