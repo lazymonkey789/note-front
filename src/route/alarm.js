@@ -4,17 +4,17 @@ import Alarmlist from "../component/alarmlist";
 
 const Alarm = () => {
     const [Alarms, setAlarms] = useState([]);
+    const axios = require("axios").default;
 
     const getAlarms = async () => {
-        const json = await (
-            await fetch("http://localhost:8080/detail-list")
-        ).json();
-        setAlarms(json);
+        const json = await axios.get("http://localhost:8080/detail-list");
+        setAlarms(json.data);
     };
 
     useEffect(() => {
         getAlarms();
     }, []);
+
     return (
         <div>
             <h1>Alarmlist</h1>

@@ -1,21 +1,26 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import DetailAlarm from "../component/detailAlarm";
+import { useNavigate } from "react-router-dom";
 
 const Detail = () => {
     const [alarmDetails, setAlarmDetails] = useState([]);
     const { id } = useParams();
+    const axios = require("axios").default;
 
     const getalarmDetail = async () => {
-        const json = await (
-            await fetch(`http://localhost:8080/detail-list/${id}`)
-        ).json();
-        setAlarmDetails(json);
+        const json = await axios.get(`http://localhost:8080/detail-list/${id}`);
+        setAlarmDetails(json.data);
     };
 
     useEffect(() => {
         getalarmDetail();
     }, []);
+    const navigate = useNavigate();
+
+    const onBackClick = () => {
+        navigate("../alarm", { replace: true });
+    };
     return (
         <div>
             <h1>Alarmlist</h1>
@@ -28,6 +33,7 @@ const Detail = () => {
                 ReportTime={alarmDetails.ReportTime}
                 Cause={alarmDetails.Cause}
             />
+            <button onClick={onBackClick}>뒤로가기</button>
         </div>
     );
 };
