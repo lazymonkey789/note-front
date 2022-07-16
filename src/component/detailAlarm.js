@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const DetailAlarm = ({ LineNo, Worker, ReportTime, Cause }) => {
     const axios = require("axios").default;
@@ -23,6 +23,7 @@ const DetailAlarm = ({ LineNo, Worker, ReportTime, Cause }) => {
 
             <footer>
                 <button onClick={onDeleteClick}>삭제하기</button>
+                <Link to={`/alarm/modify/${id}`}>수정하기</Link>
             </footer>
         </div>
     );

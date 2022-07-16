@@ -28,6 +28,7 @@ const Detail = () => {
 
             <DetailAlarm
                 key={alarmDetails.id}
+                id={alarmDetails.id}
                 LineNo={alarmDetails.LineNo}
                 Worker={alarmDetails.Worker}
                 ReportTime={alarmDetails.ReportTime}
