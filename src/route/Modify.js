@@ -87,7 +87,10 @@ const Modify = () => {
         setModi((prev) => !prev);
     };
 
-    console.log(modi);
+    const onBackClick = () => {
+        navigate(`../alarm/${id}`, { replace: true });
+    };
+
     return (
         <div>
             <h1>Update Alarm</h1>
@@ -245,6 +248,9 @@ const Modify = () => {
                         </>
                     </div>
                 </form>
+            </>
+            <>
+                <button onClick={onBackClick}>뒤로가기</button>
             </>
         </div>
     );
