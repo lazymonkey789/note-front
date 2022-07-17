@@ -70,7 +70,6 @@ const Modify = () => {
         if (id === "Writer") {
             setAddLineNo(value);
         } */
-        console.log(e);
     };
 
     const onSubmit = (e) => {

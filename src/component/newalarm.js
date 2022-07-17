@@ -4,6 +4,8 @@ const NewAlarm = ({ LineNo, Worker, ReportTime, Cause }) => {
     const axios = require("axios").default;
 
     const addAlarm = async () => {
+        await console.log(`${LineNo}`, Worker, ReportTime, Cause);
+
         await axios.post("http://localhost:8080/detail-list", {
             LineNo: `${LineNo}`,
             Worker: `${Worker}`,

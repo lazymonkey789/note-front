@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-const Modifyalarm = (LineNo, Worker, ReportTime, Cause) => {
+const Modifyalarm = ({ LineNo, Worker, ReportTime, Cause }) => {
     const axios = require("axios").default;
     const { id } = useParams();
 
