@@ -29,7 +29,6 @@ const Alarm = () => {
 
         setSel(value);
     };
-
     return (
         <div>
             <h1>Alarmlist</h1>

@@ -3,10 +3,12 @@ import SetChart from "../component/SetChart";
 
 const Chart = () => {
     const [Datas, setDatas] = useState([]);
+    const [ButtonId, SetButtonId] = useState("");
     const [ChartX, SetChartX] = useState("");
-    const axios = require("axios").default;
+    const [Xindex, SetXindex] = useState([]);
+    const [Xval, SetXval] = useState([]);
 
-    const ChartVal = {};
+    const axios = require("axios").default;
 
     const getDatas = async () => {
         const json = await axios.get("http://localhost:8080/detail-list");
@@ -15,38 +17,44 @@ const Chart = () => {
     useEffect(() => {
         getDatas();
     }, []);
-
+    console.log(Datas.LineNo);
     const onChartClick = (e) => {
         const {
             target: { id },
         } = e;
-        /*         if (id === "전용회선") {
-            let result = Datas.map((data) => data.LineNo);
+        SetButtonId(id);
+        let res = [];
 
+        if (id === "전용회선") {
+            let result = Datas.map((data) => data.LineNo);
+            SetXindex(Array.from(new Set(result)));
             result.forEach((x) => {
-                ChartVal[x] = (ChartVal[x] || 0) + 1;
+                res[x] = (res[x] || 0) + 1;
             });
-            console.log(ChartVal);
+            SetXval(res);
+
+            console.log(Xindex);
+            console.log(Xval);
         }
+
         if (id === "근무자") {
             let result = Datas.map((data) => data.Worker);
 
             result.forEach((x) => {
-                ChartVal[x] = (ChartVal[x] || 0) + 1;
+                res[x] = (res[x] || 0) + 1;
             });
-            console.log(ChartVal);
+            SetChartX(result);
+            console.log(ChartX);
+        }
+        /*         if (id === "근무자") {
+            let result = Datas.map((data) => data.Worker);
+
+            result.forEach((x) => {
+                res[x] = (res[x] || 0) + 1;
+            });
+            SetChartX(res);
+            console.log(res);
         } */
-
-        let result = [];
-
-        result = [
-            Datas.map((data) => data.LineNo),
-            Datas.map((data) => data.Worker),
-        ];
-        result[0].forEach((x) => {
-            ChartVal[x] = (ChartVal[x] || 0) + 1;
-        });
-        console.log(ChartVal);
     };
     return (
         <div>
@@ -64,7 +72,7 @@ const Chart = () => {
                 </button>
             </>
 
-            <SetChart />
+            <SetChart ButtonId={ButtonId} Datas={ChartX} />
         </div>
     );
 };
