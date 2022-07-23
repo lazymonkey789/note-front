@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
+import { Line } from "recharts";
 import SetChart from "../component/SetChart";
 
 const Chart = () => {
     const [Datas, setDatas] = useState([]);
     const [ButtonId, SetButtonId] = useState("");
-    const [ChartX, SetChartX] = useState("");
     const [Xindex, SetXindex] = useState([]);
-    const [Xval, SetXval] = useState([]);
 
     const axios = require("axios").default;
 
@@ -23,29 +22,21 @@ const Chart = () => {
             target: { id },
         } = e;
         SetButtonId(id);
-        let res = [];
 
         if (id === "전용회선") {
-            let result = Datas.map((data) => data.LineNo);
-            SetXindex(Array.from(new Set(result)));
-            result.forEach((x) => {
-                res[x] = (res[x] || 0) + 1;
-            });
-            SetXval(res);
+            let LineTemp = Datas.map((data) => data.LineNo);
+            let LTemp = Array.from(new Set(LineTemp));
 
-            console.log(Xindex);
-            console.log(Xval);
+            const LineInfo = LTemp.map((d) => {
+                return {
+                    name: d,
+                    count: LineTemp.filter((element) => d === element).length,
+                };
+            });
+
+            SetXindex(LineInfo);
         }
 
-        if (id === "근무자") {
-            let result = Datas.map((data) => data.Worker);
-
-            result.forEach((x) => {
-                res[x] = (res[x] || 0) + 1;
-            });
-            SetChartX(result);
-            console.log(ChartX);
-        }
         /*         if (id === "근무자") {
             let result = Datas.map((data) => data.Worker);
 
@@ -72,7 +63,7 @@ const Chart = () => {
                 </button>
             </>
 
-            <SetChart ButtonId={ButtonId} Datas={ChartX} />
+            <SetChart ButtonId={ButtonId} Index={Xindex} />
         </div>
     );
 };
