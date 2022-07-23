@@ -10,11 +10,12 @@ import {
 } from "recharts";
 
 const SetChart = ({ ButtonId, Index }) => {
+    const data = Index.sort();
     return (
         <div>
             <h2>Hi Chart</h2>
             <>
-                <BarChart width={730} height={250} data={Index}>
+                <BarChart width={730} height={250} data={data}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="name" />
                     <YAxis />

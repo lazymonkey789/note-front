@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Line } from "recharts";
 import SetChart from "../component/SetChart";
 
 const Chart = () => {

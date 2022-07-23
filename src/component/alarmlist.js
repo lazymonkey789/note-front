@@ -7,8 +7,9 @@ const Alarmlist = ({ id, LineNo, Worker }) => {
                 <ul>
                     <li>
                         <Link to={`${id}`}>LineNo = {LineNo}</Link>
+                        <br></br>
+                        Woker = {Worker}
                     </li>
-                    <li>Woker = {Worker}</li>
                 </ul>
             </>
         </div>
