@@ -4,48 +4,46 @@ import SetChart from "../component/SetChart";
 
 const Chart = () => {
     const [Datas, setDatas] = useState([]);
-    const [ButtonId, SetButtonId] = useState("");
-    const [Xindex, SetXindex] = useState([]);
+    const [ButtonId, setButtonId] = useState("전용회선");
+    const [Xindex, setXindex] = useState([]);
+    const [Loading, setLoading] = useState(false);
 
     const axios = require("axios").default;
 
     const getDatas = async () => {
         const json = await axios.get("http://localhost:8080/detail-list");
         setDatas(json.data);
+        setLoading((prev) => !prev);
     };
+
+    const getChart = async () => {
+        const LineTemp = await Datas.map((data) => data.LineNo);
+        const LTemp = await Array.from(new Set(LineTemp));
+
+        const LineInfo = await LTemp.map((d) => {
+            return {
+                name: d,
+                count: LineTemp.filter((element) => d === element).length,
+            };
+        });
+        setXindex(LineInfo);
+    };
+
     useEffect(() => {
         getDatas();
     }, []);
-    console.log(Datas.LineNo);
+
+    useEffect(() => {
+        getChart();
+    }, [Loading]);
+
     const onChartClick = (e) => {
         const {
             target: { id },
         } = e;
-        SetButtonId(id);
 
-        if (id === "전용회선") {
-            let LineTemp = Datas.map((data) => data.LineNo);
-            let LTemp = Array.from(new Set(LineTemp));
-
-            const LineInfo = LTemp.map((d) => {
-                return {
-                    name: d,
-                    count: LineTemp.filter((element) => d === element).length,
-                };
-            });
-
-            SetXindex(LineInfo);
-        }
-
-        /*         if (id === "근무자") {
-            let result = Datas.map((data) => data.Worker);
-
-            result.forEach((x) => {
-                res[x] = (res[x] || 0) + 1;
-            });
-            SetChartX(res);
-            console.log(res);
-        } */
+        setButtonId(id);
+        getChart();
     };
     return (
         <div>

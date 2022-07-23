@@ -10,9 +10,6 @@ import {
 } from "recharts";
 
 const SetChart = ({ ButtonId, Index }) => {
-    useEffect(() => {}, [ButtonId]);
-
-    console.log(Index);
     return (
         <div>
             <h2>Hi Chart</h2>
