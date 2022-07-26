@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import {
     BarChart,
     CartesianGrid,
@@ -13,7 +12,6 @@ const SetChart = ({ ButtonId, Index }) => {
     const data = Index.sort();
     return (
         <div>
-            <h2>Hi Chart</h2>
             <>
                 <BarChart width={730} height={250} data={data}>
                     <CartesianGrid strokeDasharray="3 3" />
