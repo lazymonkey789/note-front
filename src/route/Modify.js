@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Modifyalarm from "../component/Modifyalarm";
 
@@ -19,9 +19,28 @@ const Modify = () => {
     const [newConsider, setNewConsider] = useState("");
     const [newWriter, setNewWriter] = useState(""); */
 
-    const [modi, setModi] = useState(false);
-
+    const [oldDataLoading, setOldDataLoading] = useState(false);
+    const [oldData, setOldData] = useState("");
     const { id } = useParams();
+    const axios = require("axios").default;
+
+    const oldAlarm = async () => {
+        const json = await axios.get(`http://localhost:8080/detail-list/${id}`);
+        setOldData(json.data);
+        setOldDataLoading((prev) => !prev);
+    };
+
+    useEffect(() => {
+        oldAlarm();
+    }, []);
+    useEffect(() => {
+        setNewLineNo(oldData.LineNo);
+        setNewWorker(oldData.Worker);
+        setNewReportTime(oldData.ReportTime);
+        setNewCause(oldData.Cause);
+    }, [oldDataLoading]);
+
+    const [updatModi, setUpdateModi] = useState(false);
 
     const navigate = useNavigate();
 
@@ -84,7 +103,7 @@ const Modify = () => {
     };
 
     const onClickModi = () => {
-        setModi((prev) => !prev);
+        setUpdateModi((prev) => !prev);
     };
 
     const onBackClick = () => {
@@ -104,7 +123,7 @@ const Modify = () => {
                             <input
                                 type="number"
                                 id="LineNo"
-                                placeholder="전용회선번호"
+                                placeholder={"전용회선번호"}
                                 onChange={onChange}
                                 value={newLineNo}
                             />
@@ -224,7 +243,7 @@ const Modify = () => {
                             onClick={onClickModi}
                         />
                         <>
-                            {modi ? (
+                            {updatModi ? (
                                 <Modifyalarm
                                     LineNo={newLineNo}
                                     Worker={newWorker}
