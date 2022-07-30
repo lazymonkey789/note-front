@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Modifyalarm from "../component/Modifyalarm";
+import moment from "moment";
 
 const Modify = () => {
     const [newLineNo, setNewLineNo] = useState("");
@@ -24,21 +25,35 @@ const Modify = () => {
     const { id } = useParams();
     const axios = require("axios").default;
 
+    const [okdate, setOkdate] = useState(false);
+    const [changeDate, setChanteDate] = useState();
+    const changeTime = () => {
+        if (okdate) {
+            const transDate = moment(oldData.ReportTime);
+            setChanteDate(transDate.format("YYYY-MM-DDTHH:mm:ss"));
+        }
+    };
+    useEffect(() => {
+        changeTime();
+    }, [okdate]);
+
     const oldAlarm = async () => {
         const json = await axios.get(`http://localhost:8080/detail-list/${id}`);
         setOldData(json.data);
         setOldDataLoading((prev) => !prev);
+        setOkdate((prev) => !prev);
     };
 
+    console.log(changeDate);
     useEffect(() => {
         oldAlarm();
     }, []);
     useEffect(() => {
         setNewLineNo(oldData.LineNo);
         setNewWorker(oldData.Worker);
-        setNewReportTime(oldData.ReportTime);
+        setNewReportTime(changeDate);
         setNewCause(oldData.Cause);
-    }, [oldDataLoading]);
+    }, [okdate]);
 
     const [updatModi, setUpdateModi] = useState(false);
 
@@ -118,44 +133,45 @@ const Modify = () => {
             <>
                 <form onSubmit={onSubmit}>
                     <div>
-                        <p>
-                            <label htmlFor="LineNo">전용회선번호 : </label>
-                            <input
-                                type="number"
-                                id="LineNo"
-                                placeholder={"전용회선번호"}
-                                onChange={onChange}
-                                value={newLineNo}
-                            />
-                            <br></br>
-                            <label htmlFor="Worker">근무자 : </label>
-                            <input
-                                type="text"
-                                id="Worker"
-                                placeholder="근무자"
-                                onChange={onChange}
-                                value={newWorker}
-                            />
-                            <br></br>
-                            <label htmlFor="ReportTime">장애시간 : </label>
-                            <input
-                                type="datetime-local"
-                                id="ReportTime"
-                                placeholder="장애시간"
-                                onChange={onChange}
-                                value={newReportTime}
-                            />
-                            <br></br>
-                            <label htmlFor="Cause">원인 : </label>
-                            <input
-                                type="text"
-                                id="Cause"
-                                placeholder="원인"
-                                onChange={onChange}
-                                value={newCause}
-                            />
-                            <br></br>
-                            {/*                             <label htmlFor="OutCheck">관제 OUT : </label>
+                        {okdate ? (
+                            <p>
+                                <label htmlFor="LineNo">전용회선번호 : </label>
+                                <input
+                                    type="number"
+                                    id="LineNo"
+                                    placeholder={"전용회선번호"}
+                                    onChange={onChange}
+                                    value={newLineNo}
+                                />
+                                <br></br>
+                                <label htmlFor="Worker">근무자 : </label>
+                                <input
+                                    type="text"
+                                    id="Worker"
+                                    placeholder="근무자"
+                                    onChange={onChange}
+                                    value={newWorker}
+                                />
+                                <br></br>
+                                <label htmlFor="ReportTime">장애시간 : </label>
+                                <input
+                                    type="datetime-local"
+                                    id="ReportTime"
+                                    placeholder="장애시간"
+                                    onChange={onChange}
+                                    value={newReportTime}
+                                />
+                                <br></br>
+                                <label htmlFor="Cause">원인 : </label>
+                                <input
+                                    type="text"
+                                    id="Cause"
+                                    placeholder="원인"
+                                    onChange={onChange}
+                                    value={newCause}
+                                />
+                                <br></br>
+                                {/*                             <label htmlFor="OutCheck">관제 OUT : </label>
                             <input
                                 type="text"
                                 id="OutCheck"
@@ -236,7 +252,11 @@ const Modify = () => {
                                 value={addCause}
                             />
                             <br></br> */}
-                        </p>
+                            </p>
+                        ) : (
+                            ""
+                        )}
+
                         <input
                             type="submit"
                             value="수정"

@@ -8,12 +8,13 @@ const Detail = () => {
     const [alarmDetails, setAlarmDetails] = useState([]);
     const { id } = useParams();
     const axios = require("axios").default;
-    const [okdata, setOkdata] = useState(false);
+    const [okdate, setOkdate] = useState(false);
+    const [changeDate, setChanteDate] = useState();
 
     const getalarmDetail = async () => {
         const json = await axios.get(`http://localhost:8080/detail-list/${id}`);
         setAlarmDetails(json.data);
-        setOkdata((prev) => !prev);
+        setOkdate((prev) => !prev);
     };
 
     useEffect(() => {
@@ -25,14 +26,15 @@ const Detail = () => {
         navigate("../alarm", { replace: true });
     };
 
-    const changeData = async () => {
-        const transDate = await moment(alarmDetails.ReportTime);
-        console.log(transDate);
+    const changeTime = () => {
+        if (okdate) {
+            const transDate = moment(alarmDetails.ReportTime);
+            setChanteDate(transDate.format("YYYY-MM-DD HH:mm:ss"));
+        }
     };
     useEffect(() => {
-        changeData();
-    }, [okdata]);
-
+        changeTime();
+    }, [okdate]);
     return (
         <div>
             <h1>Alarmlist</h1>
@@ -42,7 +44,7 @@ const Detail = () => {
                 id={alarmDetails.id}
                 LineNo={alarmDetails.LineNo}
                 Worker={alarmDetails.Worker}
-                ReportTime={alarmDetails.ReportTime}
+                ReportTime={changeDate}
                 Cause={alarmDetails.Cause}
             />
             <button onClick={onBackClick}>뒤로가기</button>
