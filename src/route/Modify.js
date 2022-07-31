@@ -26,25 +26,24 @@ const Modify = () => {
     const axios = require("axios").default;
 
     const [okdate, setOkdate] = useState(false);
-    const [changeDate, setChanteDate] = useState();
+    const [changeDate, setChangeDate] = useState();
     const changeTime = () => {
-        if (okdate) {
+        if (oldDataLoading) {
             const transDate = moment(oldData.ReportTime);
-            setChanteDate(transDate.format("YYYY-MM-DDTHH:mm:ss"));
+            setChangeDate(transDate.format("YYYY-MM-DDTHH:mm:ss"));
+            setOkdate((prev) => !prev);
         }
     };
     useEffect(() => {
         changeTime();
-    }, [okdate]);
+    }, [oldDataLoading]);
 
     const oldAlarm = async () => {
         const json = await axios.get(`http://localhost:8080/detail-list/${id}`);
         setOldData(json.data);
         setOldDataLoading((prev) => !prev);
-        setOkdate((prev) => !prev);
     };
 
-    console.log(changeDate);
     useEffect(() => {
         oldAlarm();
     }, []);

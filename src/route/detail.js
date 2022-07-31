@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import DetailAlarm from "../component/detailAlarm";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
+import "moment/locale/ko";
 
 const Detail = () => {
     const [alarmDetails, setAlarmDetails] = useState([]);
@@ -29,7 +30,7 @@ const Detail = () => {
     const changeTime = () => {
         if (okdate) {
             const transDate = moment(alarmDetails.ReportTime);
-            setChanteDate(transDate.format("YYYY-MM-DD HH:mm:ss"));
+            setChanteDate(transDate.format("YYYY-MM-DD a hh:mm:ss "));
         }
     };
     useEffect(() => {

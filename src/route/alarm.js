@@ -60,7 +60,7 @@ const Alarm = () => {
 
                             <Form.Control
                                 type="search"
-                                placeholder="Item search"
+                                placeholder="search"
                                 value={SearchInput}
                                 onChange={onSearchChange}
                                 aria-describedby="basic-addon1"
