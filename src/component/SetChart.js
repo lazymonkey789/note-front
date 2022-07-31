@@ -13,12 +13,17 @@ const SetChart = ({ ButtonId, Index }) => {
     return (
         <div>
             <>
-                <BarChart width={730} height={250} data={data}>
+                <BarChart width={630} height={350} data={data}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="name" />
                     <YAxis />
                     <Tooltip />
-                    <Legend />
+                    <Legend
+                        wrapperStyle={{
+                            backgroundColor: "#f5f5f5",
+                        }}
+                    />
+
                     <Bar dataKey="count" fill="#8884d8" />
                 </BarChart>
             </>

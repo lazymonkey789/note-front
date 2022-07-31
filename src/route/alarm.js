@@ -7,8 +7,6 @@ import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
-import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -47,7 +45,7 @@ const Alarm = () => {
                         <h1>Alarmlist</h1>
                     </Col>
                     <Col lg={4}></Col>
-                    <Col lg={4} class="align-bottom">
+                    <Col lg={4} className="align-bottom">
                         <InputGroup className="mb-3">
                             <Form.Select
                                 aria-label="Default select example"
