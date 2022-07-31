@@ -13,7 +13,12 @@ const SetChart = ({ ButtonId, Index }) => {
     return (
         <div>
             <>
-                <BarChart width={630} height={350} data={data}>
+                <BarChart
+                    width={690}
+                    height={350}
+                    data={data}
+                    margin={{ top: 30, right: 0, bottom: 20, left: 0 }}
+                >
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="name" />
                     <YAxis />
@@ -24,7 +29,7 @@ const SetChart = ({ ButtonId, Index }) => {
                         }}
                     />
 
-                    <Bar dataKey="count" fill="#8884d8" />
+                    <Bar dataKey="count" barSize={30} fill="#7ac4c0" />
                 </BarChart>
             </>
         </div>
