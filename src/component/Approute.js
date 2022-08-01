@@ -8,16 +8,18 @@ import Navi from "./Navgi";
 
 const Approute = () => {
     return (
-        <HashRouter>
-            <Navi />
-            <Routes>
-                <Route path="" element={<Home />}></Route>
-                <Route path="alarm" element={<Alarm />}></Route>
-                <Route path="alarm/:id" element={<Detail />}></Route>
-                <Route path="alarm/add" element={<New />}></Route>
-                <Route path="alarm/modify/:id" element={<Modify />}></Route>
-            </Routes>
-        </HashRouter>
+        <div>
+            <HashRouter>
+                <Navi />
+                <Routes>
+                    <Route path="" element={<Home />}></Route>
+                    <Route path="alarm" element={<Alarm />}></Route>
+                    <Route path="alarm/:id" element={<Detail />}></Route>
+                    <Route path="alarm/add" element={<New />}></Route>
+                    <Route path="alarm/modify/:id" element={<Modify />}></Route>
+                </Routes>
+            </HashRouter>
+        </div>
     );
 };
 

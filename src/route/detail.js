@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import DetailAlarm from "../component/detailAlarm";
 import { useNavigate } from "react-router-dom";
+import Container from "react-bootstrap/esm/Container";
 import moment from "moment";
 import "moment/locale/ko";
 
@@ -37,19 +38,21 @@ const Detail = () => {
         changeTime();
     }, [okdate]);
     return (
-        <div>
-            <h1>Alarmlist</h1>
-            <hr></hr>
-            <DetailAlarm
-                key={alarmDetails.id}
-                id={alarmDetails.id}
-                LineNo={alarmDetails.LineNo}
-                Worker={alarmDetails.Worker}
-                ReportTime={changeDate}
-                Cause={alarmDetails.Cause}
-            />
-            <button onClick={onBackClick}>뒤로가기</button>
-        </div>
+        <Container>
+            <div>
+                <h1>Alarmlist</h1>
+                <hr></hr>
+                <DetailAlarm
+                    key={alarmDetails.id}
+                    id={alarmDetails.id}
+                    LineNo={alarmDetails.LineNo}
+                    Worker={alarmDetails.Worker}
+                    ReportTime={changeDate}
+                    Cause={alarmDetails.Cause}
+                />
+                <button onClick={onBackClick}>뒤로가기</button>
+            </div>
+        </Container>
     );
 };
 

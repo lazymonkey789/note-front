@@ -58,10 +58,11 @@ const Chart = () => {
                 <Row>
                     <div
                         style={{ height: 440, width: 750 }}
-                        className="bg-secondary bg-opacity-25"
+                        className="bg-secondary bg-opacity-25 border border-secondary"
                     >
                         <Stack gap={3}>
                             <div></div>
+
                             <div>
                                 <Stack gap={3}>
                                     <div>

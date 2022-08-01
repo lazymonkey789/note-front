@@ -38,96 +38,101 @@ const Alarm = () => {
         setSel(value);
     };
     return (
-        <div>
-            <Container>
-                <Row>
-                    <Col lg={4}>
-                        <h1>Alarmlist</h1>
-                    </Col>
-                    <Col lg={4}></Col>
-                    <Col lg={4} className="align-bottom">
-                        <InputGroup className="mb-3">
-                            <Form.Select
-                                aria-label="Default select example"
-                                onChange={onSelectChange}
-                                placeholder="검색"
-                            >
-                                <option id="전용회선번호">전용회선번호</option>
-                                <option id="근무자">근무자</option>
-                            </Form.Select>
+        <Container>
+            {" "}
+            <div>
+                <Container>
+                    <Row>
+                        <Col lg={4}>
+                            <h1>Alarmlist</h1>
+                        </Col>
+                        <Col lg={4}></Col>
+                        <Col lg={4} className="align-bottom">
+                            <InputGroup className="mb-3">
+                                <Form.Select
+                                    aria-label="Default select example"
+                                    onChange={onSelectChange}
+                                    placeholder="검색"
+                                >
+                                    <option id="전용회선번호">
+                                        전용회선번호
+                                    </option>
+                                    <option id="근무자">근무자</option>
+                                </Form.Select>
 
-                            <Form.Control
-                                type="search"
-                                placeholder="search"
-                                value={SearchInput}
-                                onChange={onSearchChange}
-                                aria-describedby="basic-addon1"
-                            />
-                            <InputGroup.Text id="basic-addon1">
-                                @
-                            </InputGroup.Text>
-                        </InputGroup>
-                    </Col>
-                </Row>
-            </Container>
+                                <Form.Control
+                                    type="search"
+                                    placeholder="search"
+                                    value={SearchInput}
+                                    onChange={onSearchChange}
+                                    aria-describedby="basic-addon1"
+                                />
+                                <InputGroup.Text id="basic-addon1">
+                                    @
+                                </InputGroup.Text>
+                            </InputGroup>
+                        </Col>
+                    </Row>
+                </Container>
 
-            <Table striped bordered hover size="sm">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>전용회선번호</th>
-                        <th>근무자</th>
-                    </tr>
-                </thead>
+                <Table striped bordered hover size="sm">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>전용회선번호</th>
+                            <th>근무자</th>
+                        </tr>
+                    </thead>
 
-                {Sel === "전용회선번호" && SearchInput !== "" ? (
-                    <>
-                        {Alarms.filter((alarm) =>
-                            alarm.LineNo.includes(SearchInput)
-                        ).map((alarm) => (
-                            <Alarmlist
-                                key={alarm.id}
-                                id={alarm.id}
-                                LineNo={alarm.LineNo}
-                                Worker={alarm.Worker}
-                            />
-                        ))}
-                    </>
-                ) : null}
-                {Sel === "근무자" && SearchInput !== "" ? (
-                    <>
-                        {Alarms.filter((alarm) =>
-                            alarm.Worker.toLowerCase().includes(
-                                SearchInput.toLowerCase()
-                            )
-                        ).map((alarm) => (
-                            <Alarmlist
-                                key={alarm.id}
-                                id={alarm.id}
-                                LineNo={alarm.LineNo}
-                                Worker={alarm.Worker}
-                            />
-                        ))}
-                    </>
-                ) : null}
-                {SearchInput === "" ? (
-                    <>
-                        {Alarms.map((alarm) => (
-                            <Alarmlist
-                                key={alarm.id}
-                                id={alarm.id}
-                                LineNo={alarm.LineNo}
-                                Worker={alarm.Worker}
-                            />
-                        ))}
-                    </>
-                ) : null}
-            </Table>
+                    {Sel === "전용회선번호" && SearchInput !== "" ? (
+                        <>
+                            {Alarms.filter((alarm) =>
+                                alarm.LineNo.includes(SearchInput)
+                            ).map((alarm) => (
+                                <Alarmlist
+                                    key={alarm.id}
+                                    id={alarm.id}
+                                    LineNo={alarm.LineNo}
+                                    Worker={alarm.Worker}
+                                />
+                            ))}
+                        </>
+                    ) : null}
+                    {Sel === "근무자" && SearchInput !== "" ? (
+                        <>
+                            {Alarms.filter((alarm) =>
+                                alarm.Worker.toLowerCase().includes(
+                                    SearchInput.toLowerCase()
+                                )
+                            ).map((alarm) => (
+                                <Alarmlist
+                                    key={alarm.id}
+                                    id={alarm.id}
+                                    LineNo={alarm.LineNo}
+                                    Worker={alarm.Worker}
+                                />
+                            ))}
+                        </>
+                    ) : null}
+                    {SearchInput === "" ? (
+                        <>
+                            {Alarms.map((alarm) => (
+                                <Alarmlist
+                                    key={alarm.id}
+                                    id={alarm.id}
+                                    LineNo={alarm.LineNo}
+                                    Worker={alarm.Worker}
+                                />
+                            ))}
+                        </>
+                    ) : null}
+                </Table>
 
-            <footer>
-                <Link to="add">작성하기</Link>
-            </footer>
-        </div>
+                <footer>
+                    <Link to="add">작성하기</Link>
+                </footer>
+            </div>
+        </Container>
     );
 };
 
