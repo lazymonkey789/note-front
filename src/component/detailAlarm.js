@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const DetailAlarm = ({ LineNo, Worker, ReportTime, Cause }) => {
     const axios = require("axios").default;
@@ -8,6 +8,9 @@ const DetailAlarm = ({ LineNo, Worker, ReportTime, Cause }) => {
     const onDeleteClick = () => {
         axios.delete(`http://localhost:8080/detail-list/${id}`);
         navigate("../alarm", { replace: true });
+    };
+    const onUpdate = () => {
+        window.location.replace(`#/alarm/modify/${id}`);
     };
 
     return (
@@ -23,7 +26,9 @@ const DetailAlarm = ({ LineNo, Worker, ReportTime, Cause }) => {
 
             <footer>
                 <button onClick={onDeleteClick}>삭제하기</button>
-                <Link to={`/alarm/modify/${id}`}>수정하기</Link>
+                <button onClick={onUpdate}>수정하기</button>
+                {/*                 <Link to={`/alarm/modify/${id}`}>수정하기</Link>
+                 */}{" "}
             </footer>
         </div>
     );

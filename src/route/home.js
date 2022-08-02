@@ -11,9 +11,7 @@ const Home = () => {
             <Row>
                 <Col md="auto">
                     <div>
-                        <>
-                            <Chart />
-                        </>
+                        <Chart />
                     </div>
                 </Col>
                 <Col>

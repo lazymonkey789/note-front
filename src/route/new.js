@@ -23,6 +23,9 @@ const New = () => {
 
     const navigate = useNavigate();
 
+    const onBackClick = () => {
+        navigate("../alarm", { replace: true });
+    };
     const onChange = (e) => {
         const {
             target: { id, value },
@@ -218,6 +221,8 @@ const New = () => {
                             value="등록"
                             onClick={onClickSend}
                         />
+                        <button onClick={onBackClick}>뒤로가기</button>
+
                         <>
                             {send ? (
                                 <NewAlarm
