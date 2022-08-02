@@ -39,12 +39,11 @@ const Alarm = () => {
     };
     return (
         <Container>
-            {" "}
             <div>
                 <Container>
                     <Row>
                         <Col lg={4}>
-                            <h1>Alarmlist</h1>
+                            <h1>Alarm</h1>
                         </Col>
                         <Col lg={4}></Col>
                         <Col lg={4} className="align-bottom">

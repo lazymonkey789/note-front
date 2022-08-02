@@ -5,6 +5,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import moment from "moment";
 
 const Chart = () => {
     const [Datas, setDatas] = useState([]);
@@ -20,17 +21,57 @@ const Chart = () => {
         setLoading((prev) => !prev);
     };
 
-    const getChart = async () => {
-        const LineTemp = await Datas.map((data) => data.LineNo);
-        const LTemp = await Array.from(new Set(LineTemp));
+    const onChartClick = (e) => {
+        const {
+            target: { id },
+        } = e;
 
-        const LineInfo = await LTemp.map((d) => {
-            return {
-                name: d,
-                count: LineTemp.filter((element) => d === element).length,
-            };
-        });
-        setXindex(LineInfo);
+        setButtonId(id);
+    };
+    useEffect(() => {
+        getChart();
+    }, [ButtonId]);
+
+    const getChart = async () => {
+        if (ButtonId === "전용회선") {
+            const LineTemp = await Datas.map((data) => data.LineNo);
+            const LTemp = await Array.from(new Set(LineTemp));
+
+            const LineInfo = await LTemp.map((d) => {
+                return {
+                    name: d,
+                    count: LineTemp.filter((element) => d === element).length,
+                };
+            });
+            setXindex(LineInfo);
+        } else if (ButtonId === "월별") {
+            const M = [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11",
+                "12",
+            ];
+
+            const MonthTemp = await Datas.map((data) =>
+                moment(data.ReportTime).format("M")
+            );
+
+            const LineInfo = await M.map((d) => {
+                return {
+                    name: `${d}월`,
+                    count: MonthTemp.filter((element) => d === element).length,
+                };
+            });
+            setXindex(LineInfo);
+        }
     };
 
     useEffect(() => {
@@ -41,19 +82,8 @@ const Chart = () => {
         getChart();
     }, [Loading]);
 
-    const onChartClick = (e) => {
-        const {
-            target: { id },
-        } = e;
-
-        setButtonId(id);
-        getChart();
-    };
     return (
         <div>
-            <>
-                <h2>Chart</h2>
-            </>
             <Container>
                 <Row>
                     <div
@@ -97,10 +127,10 @@ const Chart = () => {
                                                         className="rounded-pill"
                                                         size="sm"
                                                         variant="outline-secondary"
-                                                        id="근무자"
+                                                        id="월별"
                                                         onClick={onChartClick}
                                                     >
-                                                        근무자
+                                                        월별
                                                     </Button>
                                                 </Stack>
                                             </Col>

@@ -6,6 +6,7 @@ import Col from "react-bootstrap/Col";
 const Home = () => {
     return (
         <Container>
+            <h1>Home</h1>
             <hr></hr>
             <Row>
                 <Col md="auto">
@@ -15,7 +16,7 @@ const Home = () => {
                         </>
                     </div>
                 </Col>
-                <Col className="gy-5">
+                <Col>
                     <div
                         style={{ height: 440, width: 520 }}
                         className=" bg-secondary bg-opacity-25 border border-secondary"
