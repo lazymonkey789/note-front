@@ -1,36 +1,54 @@
-import { useNavigate, useParams } from "react-router-dom";
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
 
 const DetailAlarm = ({ LineNo, Worker, ReportTime, Cause }) => {
-    const axios = require("axios").default;
-    const { id } = useParams();
-    const navigate = useNavigate();
-
-    const onDeleteClick = () => {
-        axios.delete(`http://localhost:8080/detail-list/${id}`);
-        navigate("../alarm", { replace: true });
-    };
-    const onUpdate = () => {
-        window.location.replace(`#/alarm/modify/${id}`);
-    };
-
     return (
-        <div>
-            <>DetailAlarm</>
-            <hr></hr>
-            <ul>
-                <li>전용회선번호= {LineNo}</li>
-                <li>근무자= {Worker}</li>
-                <li>장애시간= {ReportTime}</li>
-                <li>원인= {Cause}</li>
-            </ul>
-
-            <footer>
-                <button onClick={onDeleteClick}>삭제하기</button>
-                <button onClick={onUpdate}>수정하기</button>
-                {/*                 <Link to={`/alarm/modify/${id}`}>수정하기</Link>
-                 */}{" "}
-            </footer>
-        </div>
+        <Col>
+            <Form.Group className="mb-3" controlId="formGridLineNo">
+                <Form.Label htmlFor="LineNo">전용회선번호</Form.Label>
+                <Form.Control
+                    style={{ width: 400 }}
+                    id="LineNo"
+                    type="number"
+                    placeholder="전용회선번호"
+                    disabled
+                    value={LineNo}
+                />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formGridWorker">
+                <Form.Label htmlFor="Worker">근무자</Form.Label>
+                <Form.Control
+                    style={{ width: 400 }}
+                    type="text"
+                    id="Worker"
+                    placeholder="근무자"
+                    disabled
+                    value={Worker}
+                />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formGridReportTime">
+                <Form.Label htmlFor="ReportTime">장애시간</Form.Label>
+                <Form.Control
+                    style={{ width: 400 }}
+                    type="text"
+                    id="ReportTime"
+                    placeholder="장애시간"
+                    disabled
+                    value={ReportTime}
+                />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formGridCause">
+                <Form.Label htmlFor="Cause">원인</Form.Label>
+                <Form.Control
+                    style={{ height: 200, width: 700 }}
+                    type="text"
+                    id="Cause"
+                    placeholder="원인"
+                    disabled
+                    value={Cause}
+                />
+            </Form.Group>
+        </Col>
     );
 };
 

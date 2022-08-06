@@ -6,8 +6,13 @@ import Col from "react-bootstrap/Col";
 const Home = () => {
     return (
         <Container>
-            <h1>Home</h1>
-            <hr></hr>
+            <Row>
+                <Col>
+                    <h1>Home</h1>
+                </Col>
+                <hr></hr>
+            </Row>
+
             <Row>
                 <Col md="auto">
                     <div>

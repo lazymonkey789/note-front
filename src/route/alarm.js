@@ -6,6 +6,7 @@ import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
+import Button from "react-bootstrap/Button";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import Stack from "react-bootstrap/esm/Stack";
@@ -44,13 +45,24 @@ const Alarm = () => {
     };
     return (
         <Container>
-            <Stack gap={2}>
-                <Row className="align-items-center">
-                    <Col>
-                        <h1>Alarm</h1>
-                    </Col>
-                    <Col md={4}>
-                        <InputGroup className="mb-3">
+            <Row className="align-items-center">
+                <Col>
+                    <h1>Alarm</h1>
+                </Col>
+                <Col md={6}>
+                    <Stack direction="horizontal" gap={3}>
+                        <Button
+                            variant="outline-secondary"
+                            style={{
+                                width: 110,
+                                float: "right",
+                            }}
+                            onClick={onAdd}
+                        >
+                            작성하기
+                        </Button>
+
+                        <InputGroup>
                             <Form.Select
                                 aria-label="Default select example"
                                 onChange={onSelectChange}
@@ -71,69 +83,65 @@ const Alarm = () => {
                                 @
                             </InputGroup.Text>
                         </InputGroup>
-                    </Col>
-                </Row>
+                    </Stack>
+                </Col>
+                <hr></hr>
+            </Row>
 
-                <Row>
-                    <hr></hr>
-                    <Table striped bordered hover size="sm">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>전용회선번호</th>
-                                <th>근무자</th>
-                            </tr>
-                        </thead>
+            <Row>
+                <Table striped bordered hover size="sm">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>전용회선번호</th>
+                            <th>근무자</th>
+                        </tr>
+                    </thead>
 
-                        {Sel === "전용회선번호" && SearchInput !== "" ? (
-                            <>
-                                {Alarms.filter((alarm) =>
-                                    alarm.LineNo.includes(SearchInput)
-                                ).map((alarm) => (
-                                    <Alarmlist
-                                        key={alarm.id}
-                                        id={alarm.id}
-                                        LineNo={alarm.LineNo}
-                                        Worker={alarm.Worker}
-                                    />
-                                ))}
-                            </>
-                        ) : null}
-                        {Sel === "근무자" && SearchInput !== "" ? (
-                            <>
-                                {Alarms.filter((alarm) =>
-                                    alarm.Worker.toLowerCase().includes(
-                                        SearchInput.toLowerCase()
-                                    )
-                                ).map((alarm) => (
-                                    <Alarmlist
-                                        key={alarm.id}
-                                        id={alarm.id}
-                                        LineNo={alarm.LineNo}
-                                        Worker={alarm.Worker}
-                                    />
-                                ))}
-                            </>
-                        ) : null}
-                        {SearchInput === "" ? (
-                            <>
-                                {Alarms.map((alarm) => (
-                                    <Alarmlist
-                                        key={alarm.id}
-                                        id={alarm.id}
-                                        LineNo={alarm.LineNo}
-                                        Worker={alarm.Worker}
-                                    />
-                                ))}
-                            </>
-                        ) : null}
-                    </Table>
-                </Row>
-            </Stack>
-
-            <footer>
-                <button onClick={onAdd}>작성하기</button>
-            </footer>
+                    {Sel === "전용회선번호" && SearchInput !== "" ? (
+                        <>
+                            {Alarms.filter((alarm) =>
+                                alarm.LineNo.includes(SearchInput)
+                            ).map((alarm) => (
+                                <Alarmlist
+                                    key={alarm.id}
+                                    id={alarm.id}
+                                    LineNo={alarm.LineNo}
+                                    Worker={alarm.Worker}
+                                />
+                            ))}
+                        </>
+                    ) : null}
+                    {Sel === "근무자" && SearchInput !== "" ? (
+                        <>
+                            {Alarms.filter((alarm) =>
+                                alarm.Worker.toLowerCase().includes(
+                                    SearchInput.toLowerCase()
+                                )
+                            ).map((alarm) => (
+                                <Alarmlist
+                                    key={alarm.id}
+                                    id={alarm.id}
+                                    LineNo={alarm.LineNo}
+                                    Worker={alarm.Worker}
+                                />
+                            ))}
+                        </>
+                    ) : null}
+                    {SearchInput === "" ? (
+                        <>
+                            {Alarms.map((alarm) => (
+                                <Alarmlist
+                                    key={alarm.id}
+                                    id={alarm.id}
+                                    LineNo={alarm.LineNo}
+                                    Worker={alarm.Worker}
+                                />
+                            ))}
+                        </>
+                    ) : null}
+                </Table>
+            </Row>
         </Container>
     );
 };
