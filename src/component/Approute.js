@@ -4,6 +4,7 @@ import Detail from "../route/detail";
 import Home from "../route/home";
 import Modify from "../route/Modify";
 import New from "../route/new";
+import TestApi from "../route/TestApi";
 import Navi from "./Navgi";
 
 const Approute = () => {
@@ -11,6 +12,9 @@ const Approute = () => {
         <div>
             <HashRouter>
                 <Navi />
+                <Routes>
+                    <Route path="test" element={<TestApi />}></Route>
+                </Routes>
                 <Routes>
                     <Route path="" element={<Home />}></Route>
                     <Route path="alarm" element={<Alarm />}></Route>
