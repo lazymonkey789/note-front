@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Alarmlist from "../component/alarmlist";
+
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -7,7 +8,6 @@ import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import Stack from "react-bootstrap/esm/Stack";
 
