@@ -8,6 +8,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Stack from "react-bootstrap/esm/Stack";
 import Button from "react-bootstrap/Button";
+import { useQuery } from "react-query";
 
 const Modify = () => {
     const [newLineNo, setNewLineNo] = useState("");
@@ -19,32 +20,38 @@ const Modify = () => {
     const [newController, setNewController] = useState("");
     const [newDellReport, setNewDellReport] = useState("");
     const [newNmsTime, setNewNmsTime] = useState("");
-
     const [newFinishTime, setNewFinishTime] = useState("");
     const [newSpot, setNewSpot] = useState("");
     const [newContent, setNewContent] = useState("");
     const [newConsider, setNewConsider] = useState("");
     const [newWriter, setNewWriter] = useState(""); */
 
-    const [oldDataLoading, setOldDataLoading] = useState(false);
-    const [oldData, setOldData] = useState("");
     const { id } = useParams();
     const axios = require("axios").default;
 
     const [okdate, setOkdate] = useState(false);
     const [changeDate, setChangeDate] = useState();
     const changeTime = () => {
-        if (oldDataLoading) {
-            const transDate = moment(oldData.ReportTime);
-            setChangeDate(transDate.format("YYYY-MM-DDTHH:mm:ss"));
-            setOkdate((prev) => !prev);
-        }
+        const transDate = moment(data.ReportTime);
+        setChangeDate(transDate.format("YYYY-MM-DDTHH:mm:ss"));
+        setOkdate((prev) => !prev);
     };
-    useEffect(() => {
+    /*     useEffect(() => {
         changeTime();
-    }, [oldDataLoading]);
+    }, [oldDataLoading]); */
 
-    const oldAlarm = async () => {
+    const FetchOld = async () => {
+        const { data } = await axios.get(
+            `http://localhost:8080/detail-list/${id}`
+        );
+        changeTime();
+
+        return data;
+    };
+
+    const { data } = useQuery("Old", FetchOld);
+
+    /*     const oldAlarm = async () => {
         const json = await axios.get(`http://localhost:8080/detail-list/${id}`);
         setOldData(json.data);
         setOldDataLoading((prev) => !prev);
@@ -52,15 +59,16 @@ const Modify = () => {
 
     useEffect(() => {
         oldAlarm();
-    }, []);
+    }, []); */
+
     useEffect(() => {
-        setNewLineNo(oldData.LineNo);
-        setNewWorker(oldData.Worker);
+        setNewLineNo(data.LineNo);
+        setNewWorker(data.Worker);
         setNewReportTime(changeDate);
-        setNewCause(oldData.Cause);
+        setNewCause(data.Cause);
     }, [okdate]);
 
-    const [updatModi, setUpdateModi] = useState(false);
+    const [updatetModi, setUpdateModi] = useState(false);
 
     const navigate = useNavigate();
 
@@ -119,7 +127,7 @@ const Modify = () => {
         setNewReportTime("");
         setNewCause("");
 
-        navigate(`../alarm/${id}`, { replace: true });
+        navigate(`../alarm/`, { replace: true });
     };
 
     const onClickModi = () => {
@@ -147,18 +155,18 @@ const Modify = () => {
                                 type="submit"
                                 variant="outline-secondary"
                                 onClick={onClickModi}
-                                style={{ width: 70, float: "right" }}
+                                style={{ width: 100, float: "right" }}
                             >
-                                수정
+                                수정완료
                             </Button>
                             <Button
                                 onClick={onBackClick}
                                 variant="outline-secondary"
                                 style={{
-                                    width: 110,
+                                    width: 100,
                                 }}
                             >
-                                뒤로가기
+                                취소하기
                             </Button>
                         </Stack>
                     </Col>
@@ -227,7 +235,7 @@ const Modify = () => {
                         )}
 
                         <>
-                            {updatModi ? (
+                            {updatetModi ? (
                                 <Modifyalarm
                                     LineNo={newLineNo}
                                     Worker={newWorker}

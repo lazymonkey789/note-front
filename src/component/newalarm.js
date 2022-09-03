@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { useMutation, useQueryClient } from "react-query";
 
 const NewAlarm = ({ LineNo, Worker, ReportTime, Cause }) => {
@@ -13,7 +12,6 @@ const NewAlarm = ({ LineNo, Worker, ReportTime, Cause }) => {
             Cause: `${Cause}`,
         });
     };
-
     useEffect(() => {
         addAlarm();
     }, []);

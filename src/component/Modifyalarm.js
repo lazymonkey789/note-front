@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
 
@@ -12,29 +11,22 @@ const Modifyalarm = ({ LineNo, Worker, ReportTime, Cause }) => {
         ReportTime: ReportTime,
         Cause: Cause,
     };
-    console.log(LineNo);
 
     const queryClient = useQueryClient();
 
-    const modiAlarm = useMutation(
-        async () => {
-            await axios.patch(
-                `http://localhost:8080/detail-list/${id}`,
-                modimodi
-            );
-        },
-        {
-            onSuccess: () => {
-                queryClient.invalidateQueries("modiAlarm");
-                return window.confirm("수정하였습니다.");
-            },
-            onError: (error) => {
-                console.log("onError");
-            },
-        }
-    );
+    const newAlarm = async () => {
+        await axios.patch(`http://localhost:8080/detail-list/${id}`, modimodi);
+    };
 
-    modiAlarm.mutate();
+    const { data, mutate } = useMutation(newAlarm, {
+        onSuccess: () => {
+            queryClient.invalidateQueries(data);
+            return window.confirm("수정하였습니다.");
+        },
+        onError: (error) => {
+            console.log("onError");
+        },
+    });
 
     /* 
     const newAlarm = async () => {
@@ -50,12 +42,7 @@ const Modifyalarm = ({ LineNo, Worker, ReportTime, Cause }) => {
         newAlarm();
     }, []); */
 
-    return (
-        <div>
-            <h3>Hi Update</h3>
-            <hr></hr>
-        </div>
-    );
+    return <div>{mutate(modimodi)}</div>;
 };
 
 export default Modifyalarm;
