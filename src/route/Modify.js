@@ -31,11 +31,11 @@ const Modify = () => {
 
     const [okdate, setOkdate] = useState(false);
     const [changeDate, setChangeDate] = useState();
-    const changeTime = () => {
+    /*     const changeTime = () => {
         const transDate = moment(data.ReportTime);
         setChangeDate(transDate.format("YYYY-MM-DDTHH:mm:ss"));
         setOkdate((prev) => !prev);
-    };
+    }; */
     /*     useEffect(() => {
         changeTime();
     }, [oldDataLoading]); */
@@ -44,7 +44,9 @@ const Modify = () => {
         const { data } = await axios.get(
             `http://localhost:8080/detail-list/${id}`
         );
-        changeTime();
+        const transDate = moment(data.ReportTime);
+        setChangeDate(transDate.format("YYYY-MM-DDTHH:mm:ss"));
+        setOkdate((prev) => !prev);
 
         return data;
     };
@@ -127,7 +129,7 @@ const Modify = () => {
         setNewReportTime("");
         setNewCause("");
 
-        navigate(`../alarm/`, { replace: true });
+        navigate(`../alarm/${id}`, { replace: true });
     };
 
     const onClickModi = () => {
