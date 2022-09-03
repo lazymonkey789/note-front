@@ -169,10 +169,7 @@ const Modify = () => {
                     <div>
                         {okdate ? (
                             <>
-                                <Form.Group
-                                    className="mb-3"
-                                    controlId="formGridLineNo"
-                                >
+                                <Form.Group className="mb-3">
                                     <Form.Label htmlFor="LineNo">
                                         전용회선번호
                                     </Form.Label>
@@ -185,10 +182,7 @@ const Modify = () => {
                                         value={newLineNo}
                                     />
                                 </Form.Group>
-                                <Form.Group
-                                    className="mb-3"
-                                    controlId="formGridWorker"
-                                >
+                                <Form.Group className="mb-3">
                                     <Form.Label htmlFor="Worker">
                                         근무자
                                     </Form.Label>
@@ -201,10 +195,7 @@ const Modify = () => {
                                         value={newWorker}
                                     />
                                 </Form.Group>
-                                <Form.Group
-                                    className="mb-3"
-                                    controlId="formGridReportTime"
-                                >
+                                <Form.Group className="mb-3">
                                     <Form.Label htmlFor="ReportTime">
                                         장애시간
                                     </Form.Label>
@@ -217,10 +208,7 @@ const Modify = () => {
                                         value={newReportTime}
                                     />
                                 </Form.Group>
-                                <Form.Group
-                                    className="mb-3"
-                                    controlId="formGridCause"
-                                >
+                                <Form.Group className="mb-3">
                                     <Form.Label htmlFor="Cause">
                                         원인
                                     </Form.Label>

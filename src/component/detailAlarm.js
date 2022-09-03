@@ -2,10 +2,37 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import moment from "moment";
 import "moment/locale/ko";
+import { useState } from "react";
+import Modifyalarm from "./Modifyalarm";
 
-const DetailAlarm = ({ LineNo, Worker, ReportTime, Cause }) => {
+const DetailAlarm = ({
+    LineNo,
+    Worker,
+    ReportTime,
+    Cause,
+    Updatekey,
+    Updatedkey,
+}) => {
     const transDate = moment(ReportTime);
     const changeDate = transDate.format("YYYY-MM-DD a hh:mm:ss ");
+
+    const [TestLineNo, setTestLineNo] = useState(LineNo);
+
+    const onChange = (e) => {
+        const {
+            target: { id, value },
+        } = e;
+
+        if (id === "LineNo") {
+            setTestLineNo(value);
+        }
+    };
+    console.log(Updatekey);
+
+    console.log(Updatedkey);
+    if (!Updatedkey) {
+        Modifyalarm(TestLineNo, TestLineNo, TestLineNo, TestLineNo);
+    }
 
     return (
         <Col>
@@ -16,8 +43,9 @@ const DetailAlarm = ({ LineNo, Worker, ReportTime, Cause }) => {
                     id="LineNo"
                     type="number"
                     placeholder="전용회선번호"
-                    disabled
-                    value={LineNo}
+                    disabled={Updatekey}
+                    onChange={onChange}
+                    value={TestLineNo}
                 />
             </Form.Group>
             <Form.Group className="mb-3">

@@ -8,8 +8,12 @@ import Stack from "react-bootstrap/esm/Stack";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useQuery } from "react-query";
+import { useState } from "react";
 
 const Detail = () => {
+    const [Updatekey, setUpdatekey] = useState(true);
+    const [Updatedkey, setUpdatedkey] = useState(true);
+
     const { id } = useParams();
     const axios = require("axios").default;
 
@@ -56,7 +60,14 @@ const Detail = () => {
         navigate("../alarm", { replace: true });
     };
     const onUpdate = () => {
-        window.location.replace(`#/alarm/modify/${id}`);
+        setUpdatekey(false);
+
+        /*         window.location.replace(`#/alarm/modify/${id}`);
+         */
+    };
+
+    const onUpdated = () => {
+        setUpdatedkey(false);
     };
 
     if (isError) {
@@ -88,14 +99,26 @@ const Detail = () => {
                                 >
                                     삭제하기
                                 </Button>
-                                <Button
-                                    type="submit"
-                                    variant="outline-secondary"
-                                    style={{ width: 100, float: "right" }}
-                                    onClick={onUpdate}
-                                >
-                                    수정하기
-                                </Button>
+                                {Updatekey ? (
+                                    <Button
+                                        type="submit"
+                                        variant="outline-secondary"
+                                        style={{ width: 100, float: "right" }}
+                                        onClick={onUpdate}
+                                    >
+                                        수정하기
+                                    </Button>
+                                ) : (
+                                    <Button
+                                        type="submit"
+                                        variant="outline-secondary"
+                                        style={{ width: 100, float: "right" }}
+                                        onClick={onUpdated}
+                                    >
+                                        수정완료
+                                    </Button>
+                                )}
+
                                 <Button
                                     type="submit"
                                     variant="outline-secondary"
@@ -118,6 +141,8 @@ const Detail = () => {
                                 Worker={data.Worker}
                                 ReportTime={data.ReportTime}
                                 Cause={data.Cause}
+                                Updatekey={Updatekey}
+                                Updatedkey={Updatedkey}
                             />
                         </Row>
                     </Form>
